@@ -36,3 +36,18 @@ and inherits from `IWorkFlow`.
 
 Three classes realize the execution of Spinaker (`CSpinakerExecution`), organizing inputs for Spinaker (`CWriteInputs`)
 and defining HPC cluster job-settings (`CJobScriptSlurm`).
+
+## Optimization algorithms (Fortran)
+
+### Rayleigh Quotient Minimization
+An example version of the Rayleigh Quotient Minimization is attached that was developed in the context of this paper:
+- [Identification of mechanisms of magnetic transitions using an efficient method for converging on first-order saddle points](https://journals.aps.org/prb/abstract/10.1103/z673-hhnp)
+
+The objective and the solution strategy are as follows: For simulations of realistic magnetic systems involving many 
+atomic magnetic moments the evaluation of the Hessian matrix of the energy of the system is not feasible, especially if
+the Hessian is dense due to long-range interactions. However, for saddle point search-based optimization algorithms the
+repeated calculation of the lowest eigenpair of this matrix is required. Similar to other methods 
+(Lanczos, Krylov-Schur, Jacoby Davidson, ...) we developed the Rayleigh Quotient Minimization tailored to our needs.
+During this we find the minimum of the generalized Rayleigh Quotient of the Hessian by using only finite-difference
+information and thus only information about the energy gradient. This involves adhering to the geometry of the domain
+(Grassmann manifold) using the concepts of Retraction and Parallel Transport.
